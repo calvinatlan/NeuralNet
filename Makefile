@@ -4,7 +4,7 @@ ODIR = objects
 SDIR = src
 BDIR = build
 
-_OBJS = main.o neuron.o
+_OBJS = main.o net.o neuron.o
 OBJS = $(patsubst %,$(ODIR)/%,$(_OBJS))
 
 $(ODIR)/%.o: $(SDIR)/%.cpp
