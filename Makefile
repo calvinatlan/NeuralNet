@@ -1,14 +1,16 @@
 CXX = g++
 CXXFLAGS = -Wall -g
+ODIR = objects
+SDIR = src
+BDIR = build
 
-main: objects build main.o
-	$(CXX) $(CXXFLAGS) -o build/neural-net objects/main.o
+_OBJS = main.o neuron.o
+OBJS = $(patsubst %,$(ODIR)/%,$(_OBJS))
 
-objects:
-	mkdir objects
+$(ODIR)/%.o: $(SDIR)/%.cpp
+	mkdir -p objects
+	$(CXX) -c -o $@ $< $(CXXFLAGS)
 
-build:
-	mkdir build
-
-main.o: src/main.cpp
-	$(CXX) $(CXXFLAGS) -c src/main.cpp -o objects/main.o
+$(BDIR)/neural-net: $(OBJS)
+	mkdir -p build
+	$(CXX) -o $@ $^ $(CXXFLAGS)
